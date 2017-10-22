@@ -54,23 +54,19 @@ The model.py file contains the code for training and saving the convolution neur
 
 ####1. An appropriate model architecture has been employed
 
-My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
-
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
+My model consists of a Nvidia model convolution neural network. The model includes RELU layers to introduce nonlinearity. 
 
 ####2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
-
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets to ensure that the model was not overfitting. The training-validation data was spilt as 80-20%. I kept the epochs to 7. The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 ####3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used an adam optimizer, so the learning rate was not tuned manually.
 
 ####4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
+Training data was chosen to keep the vehicle driving on the road. I used the data provided by Udacity.  I used some correction for steering angles and flipped images to create more versatile data for training.
 
 For details about how I created the training data, see the next section. 
 
@@ -78,52 +74,63 @@ For details about how I created the training data, see the next section.
 
 ####1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+The overall strategy for deriving a model architecture was to use nVidia model for CNN. 
 
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
+It is a simple yet effective model. In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set.  I tried introducing lambda layer and cropping, but there were errors while creating model. I decided to try simplest approach without extra layers. 
 
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
+I tried with epoch of 3 but when the simulator ran autonomously, it worked well for most of the lap but at one point it went off track when the dusty road came on the right. I then trained with epoch = 7 and this time it worked well. Validation loss kept on decreasing with the epochs, which was a good sign.
 
-To combat the overfitting, I modified the model so that ...
-
-Then I ... 
-
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
+The final step was to run the simulator to see how well the car was driving around track one. It successfully completed whole lap and with joy, I let it run little more just to ensure it didn't behave differently further down the line.
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
+Below is the output on my AWS instance  which created model.h5
+
+carnd@ip-172-31-86-73:~$ python model.py
+Using TensorFlow backend.
+@@@@@@@@@@@@@@@@@@@
+*****************
+19286
+Epoch 1/7
+19200/19286 [============================>.] - ETA: 0s - loss: 1.0369/
+19456/19286 [==============================] - 88s - loss: 1.0236 - val_loss: 0.0228
+Epoch 2/7
+19372/19286 [==============================] - 88s - loss: 0.0281 - val_loss: 0.0270
+Epoch 3/7
+19456/19286 [==============================] - 88s - loss: 0.0220 - val_loss: 0.0210
+Epoch 4/7
+19372/19286 [==============================] - 88s - loss: 0.0205 - val_loss: 0.0196
+Epoch 5/7
+19456/19286 [==============================] - 88s - loss: 0.0175 - val_loss: 0.0157
+Epoch 6/7
+19372/19286 [==============================] - 87s - loss: 0.0144 - val_loss: 0.0147
+Epoch 7/7
+19456/19286 [==============================] - 88s - loss: 0.0129 - val_loss: 0.0142
+
 ####2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
+The final model architecture ) consisted of a convolution neural network with the following layers and layer sizes
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
+1. Convolution2D with kernel (5,5) , activation: relu, strides(2,2), filters:24
+2. Convolution2D with kernel (5,5) , activation: relu, strides(2,2), filters:36
+3. Convolution2D with kernel (5,5) , activation: relu, strides(2,2), filters:48
+4. Convolution2D with kernel (3,3) , activation: relu, strides(1,1), filters:64
+5. Convolution2D with kernel (3,3) , activation: relu, strides(1,1), filters:64
+6. Flatten
+7. Dense with output:100
+8. Dense with output:50
+9. Dense with output:10
+10. Dense with output:1
+
+ (note: visualizing the architecture is optional according to the project rubric)
 
 ![alt text][image1]
 
 ####3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
+I used the data provided by Udacity, which really helped me.
 
-![alt text][image2]
+To augment the data set, I also flipped images and corrected steering angles
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 7  I used an adam optimizer so that manually training the learning rate wasn't necessary.
 
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
-
-Then I repeated this process on track two in order to get more data points.
-
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
-
-![alt text][image6]
-![alt text][image7]
-
-Etc ....
-
-After the collection process, I had X number of data points. I then preprocessed this data by ...
-
-
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
-
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
