@@ -132,5 +132,22 @@ I used the data provided by Udacity, which really helped me.
 
 To augment the data set, I also flipped images and corrected steering angles
 
+![Data1](https://github.com/aarti9/CarND-Behavioral-Cloning-P3/blob/master/orig_image1.jpg)
+
+
+![Data2](https://github.com/aarti9/CarND-Behavioral-Cloning-P3/blob/master/aug_image1.jpg)
+
+
+![Data3](https://github.com/aarti9/CarND-Behavioral-Cloning-P3/blob/master/orig_image2.jpg)
+
+
+![Data4](https://github.com/aarti9/CarND-Behavioral-Cloning-P3/blob/master/aug_image2.jpg)
+
+![Data5](https://github.com/aarti9/CarND-Behavioral-Cloning-P3/blob/master/orig_image3.jpg)
+
+
+![Data6](https://github.com/aarti9/CarND-Behavioral-Cloning-P3/blob/master/aug_image3.jpg)
+
+
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 7  I used an adam optimizer so that manually training the learning rate wasn't necessary.
 
