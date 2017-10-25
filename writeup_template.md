@@ -132,19 +132,27 @@ I used the data provided by Udacity, which really helped me.
 
 To augment the data set, I also flipped images and corrected steering angles
 
+original
+
 ![Data1](https://github.com/aarti9/CarND-Behavioral-Cloning-P3/blob/master/orig_image1.jpg)
 
+augmented
 
 ![Data2](https://github.com/aarti9/CarND-Behavioral-Cloning-P3/blob/master/aug_image1.jpg)
 
+original
 
 ![Data3](https://github.com/aarti9/CarND-Behavioral-Cloning-P3/blob/master/orig_image2.jpg)
 
+augmented
 
 ![Data4](https://github.com/aarti9/CarND-Behavioral-Cloning-P3/blob/master/aug_image2.jpg)
 
+original
+
 ![Data5](https://github.com/aarti9/CarND-Behavioral-Cloning-P3/blob/master/orig_image3.jpg)
 
+augmented
 
 ![Data6](https://github.com/aarti9/CarND-Behavioral-Cloning-P3/blob/master/aug_image3.jpg)
 
